@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitty AI Web App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="background.png">
+</head>
+<body>
+    <div id="app">
+        <div id="login-page" class="page active">
+            <img src="background.png" alt="Kitty Logo" class="logo">
+            <h1>Welcome to Kitty AI</h1>
+            <h2>Please Enter Your Name to Continue</h2>
+
+            <div id="name-login-section">
+                <input type="text" id="name-input" placeholder="Your Name">
+                <button id="continue-with-name-button">Start Chat</button>
+                <p id="name-message" class="message"></p>
+            </div>
+        </div>
+
+        <div id="chat-page" class="page">
+            <header>
+                <div class="header-left">
+                    <img src="background.png" alt="Kitty Logo" class="header-logo">
+                    <h2>Kitty AI</h2>
+                </div>
+                <div class="header-right">
+                    <span id="logged-in-user"></span>
+                    <button id="new-chat-button">✨ New Chat</button>
+                    <button id="logout-button">Logout</button>
+                </div>
+            </header>
+            <main>
+                <h1 class="chat-title">Meet Kitty, your personal AI assistant</h1>
+                <p id="activation-info" class="info"></p>
+                <div id="chat-history">
+                    </div>
+               
+                   
+                 
+            </main>
+            <footer>
+                <div class="mode-buttons">
+                    <button id="voice-mode-button" class="mode-button active">Voice Mode</button>
+                    <button id="text-mode-button" class="mode-button">Text Mode</button>
+                </div>
+                <div class="input-area">
+                    <button id="plus-button" class="action-button">+</button>
+                    <textarea id="user-input" placeholder="Ask Kitty..." rows="1"></textarea>
+                    <button id="send-button" class="action-button">
+                        <img src="https://api.iconify.design/material-symbols:send-rounded.svg?color=%23ffffff" alt="Send">
+                    </button>
+                    <button id="microphone-button" class="action-button">
+                        <img src="https://api.iconify.design/material-symbols:mic.svg?color=%23ffffff" alt="Microphone">
+                    </button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

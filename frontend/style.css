@@ -1,0 +1,613 @@
+/* frontend/style.css */
+
+/* --- Root Variables (Looks good, keep as is) --- */
+:root {
+    --bg-color: #1e1e1e;
+    --text-color: #f0f0f0;
+    --input-bg: #333333;
+    --border-color: #555555;
+    --button-bg: #007bff; /* Primary button color, similar to Google's blues */
+    --button-hover-bg: #0056b3;
+    --user-msg-bg: #4a4a4a; /* Darker grey for user bubbles */
+    --assistant-msg-bg: #2d2d2d; /* Slightly lighter for assistant, to distinguish */
+    --sidebar-bg: #0a0a0a;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+
+    /* Gemini specific colors/gradients */
+    --gemini-gradient-start: #4285F4; /* Google Blue */
+    --gemini-gradient-end: #EA4335;   /* Google Red */
+    --gemini-gradient-mid: #FBBC05;   /* Google Yellow */
+    --gemini-gradient-accent: #34A853;/* Google Green */
+}
+
+/* --- General Body and App Container (CRUCIAL CHANGES HERE) --- */
+html, body {
+    height: 100%; /* Ensure html and body take full viewport height */
+    margin: 0;
+    font-family: 'Google Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    display: flex; /* Make body a flex container */
+    flex-direction: column; /* Arrange children (the #app) vertically */
+}
+
+#app {
+    flex-grow: 1; /* Allow #app to take all available height of the body */
+    width: 100%;
+    max-width: 1200px; /* Your max-width is fine */
+    margin: 0 auto; /* Center the app */
+    display: flex; /* Make #app a flex container for pages */
+    overflow: hidden; /* Hide overflow of content outside the app boundary (e.g., rounded corners) */
+    position: relative; /* Crucial for absolute positioning of pages */
+    border-radius: 8px; /* Example border radius for the overall app */
+}
+
+/* --- Page Transition (Simplified and Corrected) --- */
+.page {
+    position: absolute; /* Position pages absolutely within #app for transitions */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Ensures page covers #app when absolute */
+    display: flex; /* All pages are flex containers */
+    flex-direction: column; /* Arrange content vertically */
+    justify-content: center; /* Center content for login page */
+    align-items: center; /* Center content for login page */
+    opacity: 0;
+    pointer-events: none; /* Make non-active pages unclickable */
+    transition: opacity 0.3s ease-in-out;
+    background-color: var(--bg-color); /* Ensure pages have a background color to cover content behind */
+}
+
+.page.active {
+    opacity: 1;
+    pointer-events: auto; /* Make active page clickable */
+    position: relative; /* CRUCIAL: Active page enters normal flow and takes up space */
+    flex-grow: 1; /* CRUCIAL: Active page fills available space in #app */
+    /* Remove justify-content/align-items here if chat-page needs different alignment */
+}
+
+/* --- Login Page Styling (Minor Adjustments) --- */
+#login-page {
+    text-align: center;
+    padding: 20px;
+}
+
+#login-page .logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+#login-page h1, #login-page h2 {
+    color: var(--text-color);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+#name-login-section {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto; /* Center the block */
+    margin-right: auto; /* Center the block */
+}
+
+#login-page input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1em;
+    box-sizing: border-box;
+}
+#login-page input::placeholder {
+    color: #aaa;
+}
+
+#login-page button {
+    background-color: var(--button-bg);
+    color: white;
+    border-radius: 8px;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+#login-page button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.message {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+.message.success { color: var(--success-color); }
+.message.error { color: var(--error-color); }
+.message.warning { color: var(--warning-color); }
+
+
+/* --- Chat Page Styling --- */
+#chat-page {
+    /* inherits display:flex; flex-direction: column; from .page.active */
+    width: 100%;
+    padding: 0; /* Remove padding here, main will handle it */
+}
+
+header {
+    background-color: var(--sidebar-bg);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    flex-wrap: wrap;
+    gap: 10px;
+    flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+header h2 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+#logged-in-user {
+    font-weight: bold;
+    color: var(--info-color);
+}
+
+header button {
+    background-color: var(--button-bg);
+    color: white;
+    border-radius: 5px;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+
+header button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* --- MAIN CONTENT AREA (CRUCIAL CHANGES HERE) --- */
+main {
+    flex-grow: 1; /* Allows main to take all available space between header and footer */
+    padding: 20px; /* Padding around the content */
+    display: flex; /* Make main a flex container */
+    flex-direction: column; /* Stack children vertically */
+    gap: 15px; /* Space between elements in main */
+    overflow-y: hidden; /* IMPORTANT: main itself should NOT scroll, chat-history will */
+    /* Removed padding-bottom here, as the footer is sticky and covers it */
+}
+
+.chat-title {
+    text-align: center;
+    color: var(--text-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 500;
+    flex-shrink: 0; /* Prevent title from shrinking */
+}
+
+.info, .success, .warning {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    text-align: center;
+    margin-bottom: 10px;
+    flex-shrink: 0; /* Prevent activation info from shrinking */
+}
+.info { background-color: rgba(23, 162, 184, 0.2); color: var(--info-color); }
+.success { background-color: rgba(40, 167, 69, 0.2); color: var(--success-color); }
+.warning { background-color: rgba(255, 193, 7, 0.2); color: var(--warning-color); }
+
+/* --- CHAT HISTORY (CRUCIAL CHANGES HERE) --- */
+#chat-history {
+    flex-grow: 1; /* IMPORTANT: This makes chat-history fill the remaining space in 'main' */
+    overflow-y: auto; /* IMPORTANT: This makes chat-history scrollable when content overflows */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 10px; /* Add some padding for the scrollbar */
+    min-height: 0; /* Crucial: Allows flex item to shrink below content size if needed, preventing overflow issues */
+
+    /* Scrollbar styling for Webkit browsers (Chrome, Safari) */
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #333; /* Darker track */
+        border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #888; /* Grey thumb */
+        border-radius: 4px;
+        border: 2px solid #333; /* Border to match track */
+    }
+    /* Scrollbar styling for Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #888 #444;
+}
+
+#thinking-indicator {
+    /* Ensures it looks like a message bubble */
+    margin-right: auto; /* Aligns to the left like assistant messages */
+    max-width: 75%; /* Same max-width as other messages */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+#thinking-indicator .message-content {
+    background-color: var(--assistant-msg-bg);
+    color: var(--text-color);
+    /* Add some specific styling for the thinking bubble itself */
+    padding: 12px 18px;
+    border-radius: 20px;
+    font-size: 0.95em;
+    position: relative;
+    /* Optional: Subtle gradient similar to assistant messages */
+    background: linear-gradient(135deg, var(--assistant-msg-bg) 70%, rgba(66, 133, 244, 0.1) 100%);
+}
+
+.dot-typing {
+    position: relative;
+    width: 6px; /* Width of a single dot */
+    height: 6px; /* Height of a single dot */
+    border-radius: 50%;
+    background-color: var(--text-color); /* Color of the dots */
+    color: var(--text-color); /* Fallback/Inherited color */
+    animation: dotTyping 1.5s infinite ease-in-out;
+}
+
+.dot-typing::before,
+.dot-typing::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    color: var(--text-color);
+    top: 0;
+}
+
+.dot-typing::before {
+    left: -10px; /* Position first dot */
+    animation: dotTyping 1.5s infinite ease-in-out;
+    animation-delay: 0.2s; /* Stagger animation */
+}
+
+.dot-typing::after {
+    left: 10px; /* Position third dot */
+    animation: dotTyping 1.5s infinite ease-in-out;
+    animation-delay: 0.4s; /* Stagger animation */
+}
+
+@keyframes dotTyping {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px); /* How much the dot moves up */
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.chat-message {
+    display: flex;
+    margin-bottom: 10px;
+    max-width: 75%;
+    word-wrap: break-word;
+}
+
+.chat-message.user {
+    margin-left: auto; /* Aligns to the right */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.chat-message.assistant {
+    margin-right: auto; /* Aligns to the left */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.message-content {
+    padding: 12px 18px;
+    border-radius: 20px;
+    font-size: 0.95em;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.chat-message.user .message-content {
+    background-color: var(--user-msg-bg);
+    color: var(--text-color);
+}
+
+.chat-message.assistant .message-content {
+    background-color: var(--assistant-msg-bg);
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--assistant-msg-bg) 70%, rgba(66, 133, 244, 0.1) 100%);
+    position: relative;
+    z-index: 1;
+}
+
+.chat-message.assistant .message-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg,
+        rgba(66, 133, 244, 0.05) 0%,
+        rgba(234, 67, 53, 0.05) 25%,
+        rgba(251, 188, 5, 0.05) 50%,
+        rgba(52, 168, 83, 0.05) 75%,
+        rgba(66, 133, 244, 0.05) 100%
+    );
+    background-size: 200% 200%;
+    animation: gemini-gradient-subtle 15s ease-in-out infinite;
+    z-index: -1;
+    border-radius: 20px;
+}
+
+@keyframes gemini-gradient-subtle {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+footer {
+    background-color: #58757d; /* Using your specific color from latest update */
+    padding: 10px 20px;
+    border-top: 1px solid #6a8ce9; /* Using your specific color from latest update */
+    display:flex;
+    align-items: flex-end;
+    position: sticky; /* Keep sticky here, it's generally good for chat apps */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+    gap: 10px;
+    border-top-left-radius: 10px; /* Your requested roundness */
+    border-top-right-radius: 10px; /* Your requested roundness */
+    flex-shrink: 0; /* Prevent footer from shrinking */
+}
+
+.mode-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+    width: 100%;
+    max-width: 800px; /* Max width for consistency */
+    justify-content: center;
+}
+
+.mode-button {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.mode-button.active {
+    background-color: var(--button-bg);
+    border-color: var(--button-bg);
+}
+
+.mode-button:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.input-area {
+    display: flex;
+    width: 100%;
+    max-width: 800px; /* Max width for consistency */
+    align-items: flex-end; /* Align items to the bottom */
+    background-color: var(--input-bg);
+    border-radius: 25px; /* Matches Gemini's input box */
+    padding: 8px 15px; /* Padding inside the input container */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    position: relative; /* Crucial for positioning internal buttons */
+    /* Adjust padding to accommodate the plus button */
+    padding-left: 50px; /* Space for the plus button on the left */
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 10px 0; /* Adjust padding because container has padding */
+    border: none;
+    background-color: transparent;
+    color: var(--text-color);
+    font-size: 1em;
+    resize: none;
+    min-height: 24px;
+    max-height: 100px;
+    overflow-y: auto;
+    outline: none;
+    -ms-overflow-style: none; /* For IE/Edge */
+    scrollbar-width: none; /* For Firefox */
+    padding-right: 50px; /* Increased space for send/mic button inside */
+}
+#user-input::-webkit-scrollbar {
+    display: none; /* For Chrome/Safari/Opera */
+}
+
+.input-area .action-button { /* General style for buttons within input-area */
+    background-color: transparent;
+    color: white;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    border-radius: 50%; /* Make them round */
+}
+
+.input-area .action-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Specific positioning for buttons inside the input-area */
+#plus-button {
+    position: absolute;
+    left: 10px; /* Position on the left */
+    bottom: 8px; /* Align with input */
+    font-size: 2em; /* Make the plus sign larger */
+    color: #999; /* Softer color for the plus icon */
+}
+
+#send-button, #microphone-button {
+    position: absolute; /* Take them out of flex flow */
+    right: 10px; /* Position on the right */
+    bottom: 8px; /* Align with input */
+}
+
+#send-button img, #microphone-button img {
+    width: 24px;
+    height: 24px;
+    filter: invert(100%); /* Make icons white */
+}
+
+
+#send-button {
+    background-color: var(--button-bg); /* Keep send button blue */
+    display: none; /* Controlled by JS based on input/mode */
+}
+#send-button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+
+.microphone-button.recording { /* Fix class name typo: it's .recording, not .microphone-button.recording */
+    background-color: var(--error-color);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    body {
+        align-items: flex-start; /* Align app to top on small screens */
+    }
+    #app {
+        max-width: 100%;
+        height: 100vh; /* Ensure app still takes full height */
+    }
+
+    .page {
+        padding: 15px;
+    }
+
+    #name-login-section {
+        width: 90%;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+    }
+    .header-right {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    main {
+        padding: 15px;
+        /* Removed padding-bottom here as footer is sticky */
+    }
+
+    footer {
+        padding: 10px 15px;
+        gap: 8px;
+    }
+    .mode-buttons {
+        width: 100%;
+        max-width: unset;
+    }
+    .mode-button {
+        flex-grow: 1;
+        padding: 6px 10px;
+        font-size: 0.85em;
+    }
+
+    .input-area {
+        width: 100%;
+        max-width: unset;
+        padding: 6px 10px;
+        padding-left: 45px; /* Adjust for smaller plus button */
+    }
+    #user-input {
+        min-height: 20px;
+        font-size: 0.9em;
+        padding-right: 40px; /* Adjusted for smaller send/mic button */
+    }
+    .input-area .action-button {
+        width: 36px;
+        height: 36px;
+        right: 8px;
+        bottom: 6px;
+    }
+    #plus-button {
+        left: 8px;
+        bottom: 6px;
+        font-size: 1.8em;
+    }
+    #send-button img, #microphone-button img {
+        width: 20px;
+        height: 20px;
+    }
+}
