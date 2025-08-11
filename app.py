@@ -48,7 +48,7 @@ SPECIAL_USERS = {
     "krithika": {
         "is_special_friend": True,
         "is_creator_friend_verifier": True, # Krithika is the one verified as "creator's friend"
-        "special_message": "Hi krithika!! , I hope you doing well, if you not feeling well then lets connect to my creator!!! because he likes you so he won't let you down ! And Thanks for being friend with my creator and also he likes to dedicate a song but unfortunately still he choosing a song 😊✨",
+        "special_message": "Hi krithika!! , I hope you doing well , First I Want to say Thanks for You because you are the only reason for creating me. I Hope You Doing Well ,if you not feeling well Then lets connect to my creator!!! because he likes you ,so he won't let you down ! And Thanks for being friend with my creator 😊✨",
         "custom_replies": { # NEW: Custom replies for Krithika
             "how are you": "I'm always fantastic when I'm chatting with you, Krithika! Feeling super energized! How's your day going? ❤",
             "what's your name": "You know my name, silly! I'm Kitty, always here for you! 🐱",
@@ -65,7 +65,7 @@ SPECIAL_USERS = {
     "meyyanathan": {
         "is_special_friend": True,
         "is_creator_friend_verifier": False,
-        "special_message": "Vanakkam, Meyyanathan! i am happy to see you da . nee laa ethuku uiroda irukaa , nee oru thanda punda , nee enna, question panriyaa da ,kena koothi? 🌟"
+        "special_message": "Vanakkam, Meyyanathan! i am glad to see you  . nee laa ethuku uiroda irukaa , neeye oru thanda punda , Nee Enna Question panriyaa da ,kena koothi? 🌟"
     },
     "kabilan": {
         "is_special_friend": True,
