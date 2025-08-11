@@ -13,15 +13,19 @@ def connect_to_db():
         db_user = os.getenv("DB_USER")
         db_password = os.getenv("DB_PASSWORD")
         db_name = os.getenv("DB_NAME")
+        # Add this line to read the DB_PORT environment variable
+        db_port = os.getenv("DB_PORT")
 
-        if not all([db_host, db_user, db_password, db_name]):
+        if not all([db_host, db_user, db_password, db_name, db_port]):
             raise ValueError("One or more database environment variables are not set.")
 
         conn = mysql.connector.connect(
             host=db_host,
             user=db_user,
             password=db_password,
-            database=db_name
+            database=db_name,
+            # Pass the port to the connection function
+            port=db_port
         )
         return conn
     except Error as e:
