@@ -57,10 +57,10 @@ SPECIAL_USERS = {
             "who created you": "My awesome boss created me with lots of code and care! And you're helping me grow too! 👨‍💻😊"
         }
     },
-    "naveen": { # Example, replace with actual friend names
+    "jana": { # Example, replace with actual friend names
         "is_special_friend": True,
         "is_creator_friend_verifier": False,
-        "special_message": "Hey Naveen! Adaa mada koothi, oombuda sunni ! my creator updated that , you are famous for fucking the dogs 😄"
+        "special_message": "Hey janarthan! Adaa mada ,koothi! oombuda sunni ! my creator updated that , you are famous for fucking the dogs 😄"
     },
     "meyyanathan": {
         "is_special_friend": True,
@@ -77,10 +77,10 @@ SPECIAL_USERS = {
         "is_creator_friend_verifier": False,
         "special_message": "dai vetri ! unna paathathu so happy . nee la oru brotheraa . unnala en creator ku oru job vaangi kooduka moodiyula . nee vaaldrathey waste , poi sethuru da 😎"
     },
-    "friend5": {
+    "yuvapriya": {
         "is_special_friend": True,
         "is_creator_friend_verifier": False,
-        "special_message": "Hello, Friend5! So happy you're here! How can I bring a smile to your face today? 😄"
+        "special_message": "Hey sister! you are my creator blood and you are lucky to have a brother like my creator! and So happy you're here! How can I bring a smile to your face today? 😄"
     }
 }
 
