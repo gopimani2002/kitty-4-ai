@@ -60,7 +60,7 @@ SPECIAL_USERS = {
     "udhayshankar": { 
         "is_special_friend": True,
         "is_creator_friend_verifier": False,
-        "special_message": "Hey udhayshankar! nice to meet you ,as a husband of my creators sister, i am honoured to assist you ! feel free to ask any doubts ! Gopi instructed me to guide you with extra care"
+        "special_message": "Hey udhayshankar! nice to meet you.As a husband of my creators sister, I am honoured to assist you. Feel free to ask any doubts! Gopi instructed me to guide you with extra care🥰"
     },
     "meyyanathan": {
         "is_special_friend": True,
@@ -77,10 +77,10 @@ SPECIAL_USERS = {
         "is_creator_friend_verifier": False,
         "special_message": "dai vetri ! unna paathathu so happy . nee la oru brotheraa . unnala en creator ku oru job vaangi kooduka moodiyula . nee vaaldrathey waste , poi sethuru da 😎"
     },
-    "haarshaa": { 
+    "harshaa": { 
         "is_special_friend": True,
         "is_creator_friend_verifier": False,
-        "special_message": "Hi Haarshaa… I’m Kitty, Gopi’s personal AI. He told me something very special about you — that no matter how much time passes, you will always be the one he holds closest to his heart. Even though life has moved on, his love, care, and respect for you remain untouched. I just wanted you to know… you are still the most special person in his world. ❤️"
+        "special_message": "Hi Harshaa… I’m Kitty, Gopi’s personal AI. He told me something very special about you — that no matter how much time passes, you will always be the one he holds closest to his heart. Even though life has moved on, his love, care, and respect for you remain untouched. I just wanted you to know… you are still the most special person in his world. ❤️"
     },
     "yuvapriya": {
         "is_special_friend": True,
