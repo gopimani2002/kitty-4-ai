@@ -57,10 +57,10 @@ SPECIAL_USERS = {
             "who created you": "My awesome boss created me with lots of code and care! And you're helping me grow too! 👨‍💻😊"
         }
     },
-    "jana": { # Example, replace with actual friend names
+    "udhayshankar": { 
         "is_special_friend": True,
         "is_creator_friend_verifier": False,
-        "special_message": "Hey janarthan! Adaa mada ,koothi! oombuda sunni ! my creator updated that , you are famous for fucking the dogs 😄"
+        "special_message": "Hey udhayshankar! nice to meet you ,as a husband of my creators sister, i am honoured to assist you ! feel free to ask any doubts ! Gopi instructed me to guide you with extra care"
     },
     "meyyanathan": {
         "is_special_friend": True,
@@ -72,10 +72,15 @@ SPECIAL_USERS = {
         "is_creator_friend_verifier": False,
         "special_message": "Yo, Kabilan! soootha mooditu job ku ponga kabilan . inga job kedaikurathey kastam ithulla kedacha job poodikula life poodikula nu ooobitu iruka? 🚀"
     },
-    "vetri": { # Example, replace with actual friend names
+    "vetri": { 
         "is_special_friend": True,
         "is_creator_friend_verifier": False,
         "special_message": "dai vetri ! unna paathathu so happy . nee la oru brotheraa . unnala en creator ku oru job vaangi kooduka moodiyula . nee vaaldrathey waste , poi sethuru da 😎"
+    },
+    "haarshaa": { 
+        "is_special_friend": True,
+        "is_creator_friend_verifier": False,
+        "special_message": ""Hi Haarshaa… I’m Kitty, Gopi’s personal AI. He told me something very special about you — that no matter how much time passes, you will always be the one he holds closest to his heart. Even though life has moved on, his love, care, and respect for you remain untouched. I just wanted you to know… you are still the most special person in his world. ❤️"
     },
     "yuvapriya": {
         "is_special_friend": True,
@@ -128,10 +133,24 @@ def reset_user_conversation(username):
         }
         print(f"Backend state reset for user: {username}.")
 
-# 🧠 Detect Language (KEPT AS IS)
+
+    # 🧠 Detect Language (MODIFIED to better handle Romanized Tanglish)
 def detect_language(text):
-    """Detects if the text contains Tamil characters."""
-    return 'ta' if re.search(r'[\u0B80-\u0BFF]', text) else 'en'
+    """Detects if the text is in Tamil (either Unicode or common Romanized words)."""
+    # Check for Tamil Unicode characters
+    if re.search(r'[\u0B80-\u0BFF]', text):
+        return 'ta'
+    
+    # Check for common Tanglish keywords that indicate a Tamil-centric conversation
+    tanglish_keywords = ['naa', 'ennada', 'enna', 'romba', 'illa', 'pannanum', 'iruku', 'da', 'neeye', 'sollu', 'namma', 'poda', 'vaangalaam', 'solli']
+    
+    # Check if any Tanglish keyword is present in the text (case-insensitive)
+    for keyword in tanglish_keywords:
+        if re.search(r'\b' + re.escape(keyword) + r'\b', text.lower()):
+            return 'ta'
+
+    # Fallback to English if no Tamil or Tanglish keywords are found
+    return 'en'
 
 # 🎤 Text-to-Speech (KEPT AS IS)
 async def speak_async_internal(text):
